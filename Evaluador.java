@@ -26,4 +26,7 @@ public class Evaluador
 		}
 	}
 	
+	public int propuestasPorEvaluar(){
+	    return propuestasAsignadas.size();
+	}
 }

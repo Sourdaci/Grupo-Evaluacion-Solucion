@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Iterator;
+import java.util.Collections;
 
 public class Profesor
 {
@@ -28,33 +30,33 @@ public class Profesor
         int cantidadEvaluadores = evaluadores.size();
         int cantidadPropuestas = propuestas.size();
         int minimoPropuestas = 3;
-        
-        int contador = 0;
     
-        while (contador < (minimoPropuestas * cantidadEvaluadores)) {
-            for(Evaluador persona : evaluadores){
-                String propuesta;
-                if (contador < cantidadPropuestas) { // Si hay propuestas disponibles
-                    // Se escogen consecutivamente con el indice que se incrementa despues
-                    propuesta = propuestas.get(contador);
-                }else{ // Si las soluciones son menos de numeroEvaluadores * minimoPropuestas
-                    // Se escogen propuestas aleatoriamente para los Evaluadores
-                    Random aleatorio = new Random();
-                    propuesta = propuestas.get(aleatorio.nextInt(propuestas.size()));
-                }
-                persona.asignarPropuesta(propuesta);
-                contador++;
-            }
-        }
-        // Si aun quedan propuestas sin asignar entonces las recorremos
-        // todas y las asignamos a los evaluadores segun vaya tocando
-        while (contador < cantidadPropuestas){
-            for(Evaluador persona : evaluadores){
-                if (contador < cantidadPropuestas){
-                    String propuesta = propuestas.get(contador);
+        if(minimoPropuestas * cantidadEvaluadores > cantidadPropuestas){
+            Iterator<String> iterador = propuestas.iterator();
+            while(minimoPropuestas > evaluadores.get(0).propuestasPorEvaluar()){
+                for(Evaluador persona : evaluadores){
+                    String propuesta;
+                    if (iterador.hasNext()) { // Si hay propuestas disponibles
+                        // Se escogen consecutivamente
+                        propuesta = iterador.next();
+                    }else{ // Si las soluciones son menos de numeroEvaluadores * minimoPropuestas
+                        // Se escogen propuestas aleatoriamente para los Evaluadores
+                        Random aleatorio = new Random();
+                        propuesta = propuestas.get(aleatorio.nextInt(propuestas.size()));
+                    }
                     persona.asignarPropuesta(propuesta);
                 }
-                contador++;
+            }
+        }else{
+            Iterator<String> iterador = propuestas.iterator();
+            while(iterador.hasNext()){
+                for(Evaluador persona : evaluadores){
+                    String propuesta;
+                    if (iterador.hasNext()) { // Si hay propuestas disponibles
+                        // Se escogen consecutivamente
+                        persona.asignarPropuesta(iterador.next());
+                    }
+                }
             }
         }
     }

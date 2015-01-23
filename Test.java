@@ -45,5 +45,22 @@ public class Test
         
         profesor.repartir();
         profesor.mostrarReparto();
-    }         
+    }
+    
+    public void test3()
+    {
+        Profesor profesor = new Profesor();
+        
+        profesor.registrarPropuesta("1");
+        profesor.registrarPropuesta("2");
+        profesor.registrarPropuesta("3");
+        profesor.registrarPropuesta("4");
+        
+        profesor.registrarEvaluador("A");
+        profesor.registrarEvaluador("B");
+        profesor.registrarEvaluador("C");
+        
+        profesor.repartir();
+        profesor.mostrarReparto();
+    }
 }
