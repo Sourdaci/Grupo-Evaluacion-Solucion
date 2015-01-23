@@ -26,6 +26,16 @@ public class Evaluador
 		}
 	}
 	
+	public Boolean trabajoRepetido (String trabajo){
+	    Boolean repetido = false;
+	    for(String proyecto : propuestasAsignadas){
+	        if(proyecto.equals(trabajo)){
+	            repetido = true;
+	        }
+	    }
+	    return repetido;
+	}
+	
 	public int propuestasPorEvaluar(){
 	    return propuestasAsignadas.size();
 	}

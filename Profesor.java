@@ -31,33 +31,41 @@ public class Profesor
         int cantidadPropuestas = propuestas.size();
         int minimoPropuestas = 3;
     
-        if(minimoPropuestas * cantidadEvaluadores > cantidadPropuestas){
-            Iterator<String> iterador = propuestas.iterator();
-            while(minimoPropuestas > evaluadores.get(0).propuestasPorEvaluar()){
-                for(Evaluador persona : evaluadores){
-                    String propuesta;
-                    if (iterador.hasNext()) { // Si hay propuestas disponibles
-                        // Se escogen consecutivamente
-                        propuesta = iterador.next();
-                    }else{ // Si las soluciones son menos de numeroEvaluadores * minimoPropuestas
-                        // Se escogen propuestas aleatoriamente para los Evaluadores
-                        Random aleatorio = new Random();
-                        propuesta = propuestas.get(aleatorio.nextInt(propuestas.size()));
+        if(cantidadPropuestas >= minimoPropuestas){
+            if(minimoPropuestas * cantidadEvaluadores > cantidadPropuestas){
+                Iterator<String> iterador = propuestas.iterator();
+                while(minimoPropuestas > evaluadores.get(0).propuestasPorEvaluar()){
+                    for(Evaluador persona : evaluadores){
+                        String propuesta;
+                        if (iterador.hasNext()) { // Si hay propuestas disponibles
+                            // Se escogen consecutivamente
+                            propuesta = iterador.next();
+                        }else{ // Si las soluciones son menos de numeroEvaluadores * minimoPropuestas
+                            // Se escogen propuestas aleatoriamente para los Evaluadores
+                            Random aleatorio = new Random();
+                            do{
+                                propuesta = propuestas.get(aleatorio.nextInt(propuestas.size()));
+                            }while(persona.trabajoRepetido(propuesta));
+                        }
+                        persona.asignarPropuesta(propuesta);
                     }
-                    persona.asignarPropuesta(propuesta);
+                }
+            }else{
+                Iterator<String> iterador = propuestas.iterator();
+                while(iterador.hasNext()){
+                    for(Evaluador persona : evaluadores){
+                        String propuesta;
+                        if (iterador.hasNext()) { // Si hay propuestas disponibles
+                            // Se escogen consecutivamente
+                            persona.asignarPropuesta(iterador.next());
+                        }
+                    }
                 }
             }
         }else{
-            Iterator<String> iterador = propuestas.iterator();
-            while(iterador.hasNext()){
-                for(Evaluador persona : evaluadores){
-                    String propuesta;
-                    if (iterador.hasNext()) { // Si hay propuestas disponibles
-                        // Se escogen consecutivamente
-                        persona.asignarPropuesta(iterador.next());
-                    }
-                }
-            }
+            System.out.println("Error: no se puede evitar que un evaluador reciba trabajos repetidos");
+            System.out.println("No se han asignado trabajos");
+            System.out.println("Trabajos entregados: " + cantidadPropuestas + ", minimo necesario " + minimoPropuestas);
         }
     }
     
