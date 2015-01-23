@@ -30,26 +30,32 @@ public class Profesor
         int minimoPropuestas = 3;
         
         int contador = 0;
-        int indiceDelEvaluadorActual = 0;
-        int indiceDeLaPropuestaActual = 0;
     
         while (contador < (minimoPropuestas * cantidadEvaluadores)) {
-            Evaluador persona = evaluadores.get(indiceDelEvaluadorActual);
-            if (indiceDeLaPropuestaActual < cantidadPropuestas) {
-                String propuesta = propuestas.get(indiceDeLaPropuestaActual);
+            for(Evaluador persona : evaluadores){
+                String propuesta;
+                if (contador < cantidadPropuestas) { // Si hay propuestas disponibles
+                    // Se escogen consecutivamente con el indice que se incrementa despues
+                    propuesta = propuestas.get(contador);
+                }else{ // Si las soluciones son menos de numeroEvaluadores * minimoPropuestas
+                    // Se escogen propuestas aleatoriamente para los Evaluadores
+                    Random aleatorio = new Random();
+                    propuesta = propuestas.get(aleatorio.nextInt(propuestas.size()));
+                }
                 persona.asignarPropuesta(propuesta);
-            }else{
-                Random aleatorio = new Random();
-                String propuesta = propuestas.get(aleatorio.nextInt(propuestas.size()));
-                persona.asignarPropuesta(propuesta);
+                contador++;
             }
-            indiceDeLaPropuestaActual++;
-            indiceDelEvaluadorActual++;
-            if (indiceDelEvaluadorActual == cantidadEvaluadores)
-            {
-                indiceDelEvaluadorActual = 0;
+        }
+        // Si aun quedan propuestas sin asignar entonces las recorremos
+        // todas y las asignamos a los evaluadores segun vaya tocando
+        while (contador < cantidadPropuestas){
+            for(Evaluador persona : evaluadores){
+                if (contador < cantidadPropuestas){
+                    String propuesta = propuestas.get(contador);
+                    persona.asignarPropuesta(propuesta);
+                }
+                contador++;
             }
-            contador++;
         }
     }
     
