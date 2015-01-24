@@ -31,11 +31,16 @@ public class Profesor
         int cantidadPropuestas = propuestas.size();
         int minimoPropuestas = 3;
     
-        if(cantidadPropuestas >= minimoPropuestas){
+        if(cantidadPropuestas >= minimoPropuestas){ // se comprueba que hay un minimo de trabajos presentados
+            // asi nos aseguramos de que no habra bucle infinito en la comprobacion de trabajo repetido
+            
+            // el programa trabaja de forma diferente si tiene o no soluciones suficientes
+            // se entra en este if si hay que repartir soluciones aleatorias para llegar al minimo
             if(minimoPropuestas * cantidadEvaluadores > cantidadPropuestas){
-                Iterator<String> iterador = propuestas.iterator();
+                Iterator<String> iterador = propuestas.iterator(); // recorre las soluciones
                 while(minimoPropuestas > evaluadores.get(0).propuestasPorEvaluar()){
-                    for(Evaluador persona : evaluadores){
+                    // este bucle se itera si los evaluadores no tienen el minimo de soluciones
+                    for(Evaluador persona : evaluadores){ // recorremos consecutivamente los evaluadores
                         String propuesta;
                         if (iterador.hasNext()) { // Si hay propuestas disponibles
                             // Se escogen consecutivamente
@@ -43,16 +48,18 @@ public class Profesor
                         }else{ // Si las soluciones son menos de numeroEvaluadores * minimoPropuestas
                             // Se escogen propuestas aleatoriamente para los Evaluadores
                             Random aleatorio = new Random();
-                            do{
+                            do{ // bucle que le pide al evaluador que compruebe si tiene la solucion escogida
+                                // recordemos que esta solucion se escoge aleatoriamente
                                 propuesta = propuestas.get(aleatorio.nextInt(propuestas.size()));
-                            }while(persona.trabajoRepetido(propuesta));
+                            }while(persona.trabajoRepetido(propuesta)); // finaliza cuando recibe false (no)
                         }
                         persona.asignarPropuesta(propuesta);
                     }
                 }
             }else{
-                Iterator<String> iterador = propuestas.iterator();
-                while(iterador.hasNext()){
+                // se entra en el else si no hay que repartir soluciones aleatorias para cumplir el minimo
+                Iterator<String> iterador = propuestas.iterator(); // recorre las soluciones
+                while(iterador.hasNext()){ // mientras haya soluciones por repartir
                     for(Evaluador persona : evaluadores){
                         String propuesta;
                         if (iterador.hasNext()) { // Si hay propuestas disponibles
