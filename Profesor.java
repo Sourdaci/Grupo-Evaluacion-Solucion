@@ -92,26 +92,6 @@ public class Profesor
         }
     }
     
-    public void emparejarDe2En2ByJulia(){
-        if(propuestas.size() % 2 == 0){ // si hay propuestas pares
-            ArrayList<String> shufflePropuestas = new ArrayList<String>(propuestas); // copio las propuestas
-            Random aleatorio = new Random(); // creo elemento aleatorio para escogerlas
-            int contador = 1; // para hacer bonito
-            while(shufflePropuestas.size() > 0){
-                System.out.print("Eliminatoria " + contador + ": "); // aqui el contador para hacer bonito
-                int indiceAleatorio = aleatorio.nextInt(shufflePropuestas.size()); // indice de propuesta aleatorio
-                System.out.print(shufflePropuestas.get(indiceAleatorio) + " y "); // muestro la propuesta aleatoria
-                shufflePropuestas.remove(indiceAleatorio); // borro esa propuesta aleatoria
-                indiceAleatorio = aleatorio.nextInt(shufflePropuestas.size()); // nuevo indice de propuesta aleatorio
-                System.out.print(shufflePropuestas.get(indiceAleatorio) + "\n"); // muestro la nueva propuesta aleatoria
-                shufflePropuestas.remove(indiceAleatorio); // borro la nueva propuesta aleatoria
-                contador++;
-            }
-        }else{ // si hay propuestas impares
-            System.out.println("Propuestas impares, no se puede emparejar");
-        }
-    }
-    
     public void mostrarReparto()
     {
         for (Evaluador evaluador : evaluadores)
