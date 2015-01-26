@@ -76,6 +76,42 @@ public class Profesor
         }
     }
     
+    public void emparejarDe2En2(){
+        if(propuestas.size() % 2 == 0){ // si hay propuestas pares
+            ArrayList<String> shufflePropuestas = new ArrayList<String>(propuestas); // copio las propuestas
+            Collections.shuffle(shufflePropuestas); // mezclo las propuestas
+            Iterator<String> iterador = shufflePropuestas.iterator(); // para recorrer las propuestas mezcladas
+            int contador = 1; // para hacer bonito
+            while(iterador.hasNext()){ // mientras haya propuestas para mostrar
+                System.out.print("Eliminatoria " + contador + ": "); // aqui el contador que hace bonito
+                System.out.print(iterador.next() + " y " + iterador.next() + "\n"); // muestro las 2 propuestas
+                contador++;
+            }
+        }else{ // si hay propuestas impares
+            System.out.println("Propuestas impares, no se puede emparejar");
+        }
+    }
+    
+    public void emparejarDe2En2ByJulia(){
+        if(propuestas.size() % 2 == 0){ // si hay propuestas pares
+            ArrayList<String> shufflePropuestas = new ArrayList<String>(propuestas); // copio las propuestas
+            Random aleatorio = new Random(); // creo elemento aleatorio para escogerlas
+            int contador = 1; // para hacer bonito
+            while(shufflePropuestas.size() > 0){
+                System.out.print("Eliminatoria " + contador + ": "); // aqui el contador para hacer bonito
+                int indiceAleatorio = aleatorio.nextInt(shufflePropuestas.size()); // indice de propuesta aleatorio
+                System.out.print(shufflePropuestas.get(indiceAleatorio) + " y "); // muestro la propuesta aleatoria
+                shufflePropuestas.remove(indiceAleatorio); // borro esa propuesta aleatoria
+                indiceAleatorio = aleatorio.nextInt(shufflePropuestas.size()); // nuevo indice de propuesta aleatorio
+                System.out.print(shufflePropuestas.get(indiceAleatorio) + "\n"); // muestro la nueva propuesta aleatoria
+                shufflePropuestas.remove(indiceAleatorio); // borro la nueva propuesta aleatoria
+                contador++;
+            }
+        }else{ // si hay propuestas impares
+            System.out.println("Propuestas impares, no se puede emparejar");
+        }
+    }
+    
     public void mostrarReparto()
     {
         for (Evaluador evaluador : evaluadores)
