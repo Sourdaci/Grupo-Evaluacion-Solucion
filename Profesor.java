@@ -92,6 +92,47 @@ public class Profesor
         }
     }
     
+    public void emparejarDe2En2ByJulia(){
+        if(propuestas.size() % 2 == 0){ // si hay propuestas pares
+            ArrayList<String> shufflePropuestas = new ArrayList<String>(propuestas); // copio las propuestas
+            Random aleatorio = new Random(); // creo elemento aleatorio para escogerlas
+            int contador = 1; // para hacer bonito
+            while(shufflePropuestas.size() > 0){
+                System.out.print("Eliminatoria " + contador + ": "); // aqui el contador para hacer bonito
+                int indiceAleatorio = aleatorio.nextInt(shufflePropuestas.size()); // indice de propuesta aleatorio
+                System.out.print(shufflePropuestas.get(indiceAleatorio) + " y "); // muestro la propuesta aleatoria
+                shufflePropuestas.remove(indiceAleatorio); // borro esa propuesta aleatoria
+                indiceAleatorio = aleatorio.nextInt(shufflePropuestas.size()); // nuevo indice de propuesta aleatorio
+                System.out.print(shufflePropuestas.get(indiceAleatorio) + "\n"); // muestro la nueva propuesta aleatoria
+                shufflePropuestas.remove(indiceAleatorio); // borro la nueva propuesta aleatoria
+                contador++;
+            }
+        }else{ // si hay propuestas impares
+            System.out.println("Propuestas impares, no se puede emparejar");
+        }
+    }
+    
+    public void emparejarDe2En2ByJuliaModdedByMiguel(){
+        if(propuestas.size() % 2 == 0){ // si hay propuestas pares
+            ArrayList<String> copia = new ArrayList<String>(propuestas); // copio las propuestas
+            Random aleatorio = new Random(); // creo elemento aleatorio para escogerlas
+            int contador = 1; // para hacer bonito
+            String propuestaUno, propuestaDos;
+            while(copia.size() > 0){
+                // Explicacion de las siguientes lineas: Se escoge aleatoriamente un trabajo, se guarda y se borra
+                // Se escoge con el elemento Random, con parametro cantidad de elementos del ArrayList copia
+                // El indice de copia escogido con Random se borra
+                // El metodo remove() de ArrayList devuelve el objeto borrado, que puede guardarse
+                propuestaUno = copia.remove(aleatorio.nextInt(copia.size()));
+                propuestaDos = copia.remove(aleatorio.nextInt(copia.size()));
+                System.out.println("Eliminatoria " + contador + ": " + propuestaUno + " y " + propuestaDos);
+                contador++;
+            }
+        }else{ // si hay propuestas impares
+            System.out.println("Propuestas impares, no se puede emparejar");
+        }
+    }
+    
     public void mostrarReparto()
     {
         for (Evaluador evaluador : evaluadores)

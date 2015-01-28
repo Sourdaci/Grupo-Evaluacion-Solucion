@@ -82,6 +82,6 @@ public class Test
         profesor.registrarPropuesta("14a");
         profesor.registrarPropuesta("14b");
         
-        profesor.emparejarDe2En2ByJulia();
+        profesor.emparejarDe2En2ByJuliaModdedByMiguel();
     }
 }
